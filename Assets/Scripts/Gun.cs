@@ -20,10 +20,34 @@ public class Gun : MonoBehaviour {
 			// i can shoot!
 			if (Input.GetButton("Fire1")) {
 				timeToNextShoot = 10;
+
+				Vector3 position = this.gameObject.transform.position;
+				GameObject bullet = (GameObject) Instantiate(Resources.Load("Prefabs/Bullet"), position, Quaternion.identity);
+
+				int state = (int) this.gameObject.GetComponent<Walker>().lastState;
+				switch (state) {
+					case 4:
+						//down
+
+						break;
+
+					case 5:
+						//up
+						break;
+
+					case 6:
+						//left
+						break;
+
+					case 7:
+						//right
+						break;
+				}
+				bullet.transform.Rotate(0f, 0f, 90f);
+				bullet.rigidbody.velocity = new Vector3(0, -1 * 200, 0);
 			}
 
 			TimeToReload.text = "You can shoot!";
-
 
 		} else {
 			timeToNextShoot -= Time.deltaTime;

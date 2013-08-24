@@ -17,6 +17,7 @@ public class Walker : MonoBehaviour {
 	};
 
 	public WalkingState state = WalkingState.RestDown;
+	public WalkingState lastState = 0;
 
 	private float walkingSpeed = 18.0f;
 
@@ -29,7 +30,7 @@ public class Walker : MonoBehaviour {
         int vertical = (int) Input.GetAxis("Vertical");
         int horizontal = (int) Input.GetAxis("Horizontal");
 
-        WalkingState lastState = 0;
+        lastState = 0;
 
         switch (vertical) {
         	case 1:
@@ -92,22 +93,6 @@ public class Walker : MonoBehaviour {
                 ragePixel.PlayNamedAnimation("WALK_RIGHT", false);
                 break;
         }
-
-        // if (Input.GetButton("Fire1")) {
-        //     // Debug.Log("FIRE 1!!!");
-        //     this.audio.clip = [];
-        //     this.audio.Play(0);
-        // }
-        // if (Input.GetButton("Fire2")) {
-        //     // Debug.Log("FIRE 2!!!");
-        //     //change 
-        // }
-        // if (Input.GetButton("Fire3")) {
-        //     Debug.Log("FIRE 3!!!");
-        // }
-        // if (Input.GetButton("Jump")) {
-        //     Debug.Log("JUMP!!!");
-        // }
 
         if (vertical == 0 && horizontal == 0) {
         	this.rigidbody.velocity = new Vector3(0f, 0f, 0f);
