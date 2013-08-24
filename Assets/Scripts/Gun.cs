@@ -7,30 +7,33 @@ public class Gun : MonoBehaviour {
 
 	private float timeToNextShoot = 10;
 
+	public TextMesh TimeToReload;
+
 	void Start () {
 		// Vector3 position = new Vector3(x, y, 0);
 		// Instantiate(Resources.Load("Prefabs/Bullet"), position, Quaternion.identity);
 	}
 	
 	void Update () {
+
 		if (timeToNextShoot <= 0) {
 			// i can shoot!
 			if (Input.GetButton("Fire1")) {
 				timeToNextShoot = 10;
 			}
 
+			TimeToReload.text = "You can shoot!";
+
 
 		} else {
 			timeToNextShoot -= Time.deltaTime;
+			TimeToReload.text = "" + timeToNextShoot;
 		}
 	}
 }
 
-
-
-
-        // if (Input.GetButton("Fire1")) {
-        //     // Debug.Log("FIRE 1!!!");
+		// if (Input.GetButton("Fire1")) {
+		//     // Debug.Log("FIRE 1!!!");
         //     this.audio.clip = [];
         //     this.audio.Play(0);
         // }
