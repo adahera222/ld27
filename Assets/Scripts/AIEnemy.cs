@@ -63,17 +63,17 @@ public class AIEnemy : MonoBehaviour {
 
 
 
-		GameObject Hero = GameObject.FindWithTag("Hero");
-		float d = Vector3.Distance(Hero.transform.position, this.gameObject.transform.position);
+		// GameObject Hero = GameObject.FindWithTag("Hero");
+		// float d = Vector3.Distance(Hero.transform.position, this.gameObject.transform.position);
 
-		Vector3 enemyPosition = this.gameObject.transform.position;
-		Vector3 heroPosition = Hero.transform.position;
+		// Vector3 enemyPosition = this.gameObject.transform.position;
+		// Vector3 heroPosition = Hero.transform.position;
 
-		Vector3 diff = heroPosition - enemyPosition;
+		// Vector3 diff = heroPosition - enemyPosition;
 
 		// this.rigidbody.velocity = diff;
 
-		
+
 
 
 		// if (calculateVector3ToHero != new Vector3(0f, 0f, 0f)) {
@@ -125,4 +125,14 @@ public class AIEnemy : MonoBehaviour {
 	float CalculateVector3ToFood() {
 		return 0f;
 	}
+
+	void OnTriggerEnter(Collider other) {
+		Debug.Log("111111111111" + other.gameObject.name);
+		if (other.gameObject.name == "Bullet(Clone)") {
+			Debug.Log("МЕК МЕК МЕК");
+		}
+		
+        // Destroy(other.gameObject);
+    }
+
 }
