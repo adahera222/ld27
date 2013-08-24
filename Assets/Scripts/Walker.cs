@@ -6,14 +6,17 @@ public class Walker : MonoBehaviour {
 	private IRagePixel ragePixel;
 
 	public enum WalkingState {
-		Rest = 0,
-		WalkRight,
-		WalkLeft,
+		RestDown = 0,
+		RestUp,
+		RestLeft,
+		RestRight,
 		WalkDown,
 		WalkUp,
+		WalkLeft,
+		WalkRight,
 	};
 
-	public WalkingState walkingState = Rest;
+	public WalkingState walkingState = WalkingState.RestDown;
 
 	public float walkingSpeed = 8.0f;
 
@@ -76,9 +79,9 @@ public class Walker : MonoBehaviour {
         //     Debug.Log("JUMP!!!");
         // }
 
-        // var x = Input.GetAxis("Horizontal") * 100;
-        // var y = Input.GetAxis("Vertical") * 100;
+        var x = Input.GetAxis("Horizontal") * 100;
+        var y = Input.GetAxis("Vertical") * 100;
         // // transform.Translate(x, y, 0);
-        // this.rigidbody.AddForce(x, y, 0);
+        this.rigidbody.AddForce(x, y, 0);
 	}
 }
