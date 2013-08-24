@@ -18,7 +18,7 @@ public class Walker : MonoBehaviour {
 
 	public WalkingState state = WalkingState.RestDown;
 
-	public float walkingSpeed = 8.0f;
+	private float walkingSpeed = 18.0f;
 
 	void Start () {
 		ragePixel = GetComponent<RagePixelSprite>();
@@ -28,6 +28,8 @@ public class Walker : MonoBehaviour {
 
         int vertical = (int) Input.GetAxis("Vertical");
         int horizontal = (int) Input.GetAxis("Horizontal");
+
+        WalkingState lastState = 0;
 
         switch (vertical) {
         	case 1:
@@ -54,6 +56,8 @@ public class Walker : MonoBehaviour {
         	default:
         		break;
         }
+
+        lastState = state;
         
         switch (state) {
             case(WalkingState.RestDown):
@@ -89,8 +93,6 @@ public class Walker : MonoBehaviour {
                 break;
         }
 
-        // transform.Translate(moveDirection * Time.deltaTime * walkingSpeed);
-
         // if (Input.GetButton("Fire1")) {
         //     // Debug.Log("FIRE 1!!!");
         //     this.audio.clip = [];
@@ -107,6 +109,35 @@ public class Walker : MonoBehaviour {
         //     Debug.Log("JUMP!!!");
         // }
 
-        this.rigidbody.AddForce(horizontal * 8, vertical * 8, 0);
+        if (vertical == 0 && horizontal == 0) {
+        	this.rigidbody.velocity = new Vector3(0f, 0f, 0f);
+
+        	switch (lastState) {
+        		case(WalkingState.WalkDown):
+                	ragePixel.PlayNamedAnimation("REST_DOWN", false);
+                	break;
+
+            	case (WalkingState.WalkUp):
+                	ragePixel.PlayNamedAnimation("REST_UP", false);
+                	break;
+
+            	case (WalkingState.WalkLeft):
+                	ragePixel.PlayNamedAnimation("REST_LEFT", false);
+                	break;
+
+            	case (WalkingState.WalkRight):
+                	ragePixel.PlayNamedAnimation("REST_RIGHT", false);
+                	break;
+        	}
+        } else {
+        	this.rigidbody.velocity = new Vector3(horizontal * walkingSpeed, vertical * walkingSpeed, 0);	
+        }
+
+
 	}
+
+	// function ApplyForce (body : Rigidbody) {
+	// 	var direction : Vector3 = body.transform.position - transform.position;
+	// 	body.AddForceAtPosition(direction.normalized, transform.position);
+	// }
 }
