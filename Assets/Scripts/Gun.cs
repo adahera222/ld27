@@ -5,16 +5,14 @@ public class Gun : MonoBehaviour {
 
 	public Vector3 shootDirection = new Vector3();
 
-	static float kReloadTime = 1;
+	static float kReloadTime = 10;
 
 	private float timeToNextShoot = kReloadTime;
 
 	public TextMesh TimeToReload;
 
-	void Start () {
-		// Vector3 position = new Vector3(x, y, 0);
-		// Instantiate(Resources.Load("Prefabs/Bullet"), position, Quaternion.identity);
-	}
+	public AudioClip audioShoot;
+	public AudioClip audioFail;
 	
 	void Update () {
 
@@ -30,10 +28,13 @@ public class Gun : MonoBehaviour {
 
 				bullet.GetComponent<BulletFly>().state = state;
 			}
-
+			// audio.PlayOneShot(audioShoot);
 			TimeToReload.text = "You can shoot!";
 
 		} else {
+			// if (Input.GetButton("Fire1")) {
+			// 	audio.PlayOneShot(audioFail);
+			// }
 			timeToNextShoot -= Time.deltaTime;
 			TimeToReload.text = "" + timeToNextShoot;
 		}
