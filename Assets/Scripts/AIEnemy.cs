@@ -127,12 +127,9 @@ public class AIEnemy : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		Debug.Log("111111111111" + other.gameObject.name);
 		if (other.gameObject.name == "Bullet(Clone)") {
-			Debug.Log("МЕК МЕК МЕК");
+			Destroy(other.gameObject);
 		}
-		
-        // Destroy(other.gameObject);
     }
 
 }
