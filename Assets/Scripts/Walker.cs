@@ -133,11 +133,6 @@ public class Walker : MonoBehaviour {
         	this.rigidbody.velocity = new Vector3(horizontal * walkingSpeed, vertical * walkingSpeed, 0);	
         }
 
-
 	}
 
-	// function ApplyForce (body : Rigidbody) {
-	// 	var direction : Vector3 = body.transform.position - transform.position;
-	// 	body.AddForceAtPosition(direction.normalized, transform.position);
-	// }
 }
