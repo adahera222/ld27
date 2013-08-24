@@ -16,7 +16,7 @@ public class Walker : MonoBehaviour {
 		WalkRight,
 	};
 
-	public WalkingState walkingState = WalkingState.RestDown;
+	public WalkingState state = WalkingState.RestDown;
 
 	public float walkingSpeed = 8.0f;
 
@@ -25,41 +25,69 @@ public class Walker : MonoBehaviour {
 	}
 	
 	void Update () {
-		// if (Input.GetKey(KeyCode.LeftArrow) || (Input.GetAxisRaw("Horizontal") < 0)) {
-        //     state = WalkingState.WalkLeft;
-        // }
-        // else if (Input.GetKey(KeyCode.RightArrow) || (Input.GetAxisRaw("Horizontal") > 0)) {
-        //     state = WalkingState.WalkRight;
-        // }
-        // else {
-        //     state = WalkingState.Standing;
-        // }
-        // if (Input.GetButton("Jump")) {
-        //     Debug.Log("JUMP!!!");
-        // }
 
-        // Debug.Log("Horizontal axis " + Input.GetAxisRaw("Horizontal").ToString());
+        int vertical = (int) Input.GetAxis("Vertical");
+        int horizontal = (int) Input.GetAxis("Horizontal");
 
-        // Vector3 moveDirection = new Vector3();
+        switch (vertical) {
+        	case 1:
+        		state = WalkingState.WalkUp;
+        		break;
+
+        	case -1:
+        		state = WalkingState.WalkDown;
+        		break;
+
+        	default:
+        		break;
+        }
+
+        switch (horizontal) {
+        	case 1:
+        		state = WalkingState.WalkRight;
+        		break;
+
+        	case -1:
+        		state = WalkingState.WalkLeft;
+        		break;
+
+        	default:
+        		break;
+        }
         
-        // switch (state) {
-        //     case(WalkingState.Standing):
-        //         ragePixel.SetHorizontalFlip(false);
-        //         ragePixel.PlayNamedAnimation("STAY", false);
-        //         break;
+        switch (state) {
+            case(WalkingState.RestDown):
+                ragePixel.PlayNamedAnimation("REST_DOWN", false);
+                break;
 
-        //     case (WalkingState.WalkLeft):
-        //         ragePixel.SetHorizontalFlip(true);
-        //         ragePixel.PlayNamedAnimation("WALK", false);
-        //         moveDirection = new Vector3(-1f, 0f, 0f);
-        //         break;
+            case (WalkingState.RestUp):
+                ragePixel.PlayNamedAnimation("REST_UP", false);
+                break;
 
-        //     case (WalkingState.WalkRight):
-        //         ragePixel.SetHorizontalFlip(false);
-        //         ragePixel.PlayNamedAnimation("WALK", false);
-        //         moveDirection = new Vector3(1f, 0f, 0f);
-        //         break;
-        // }
+            case (WalkingState.RestLeft):
+                ragePixel.PlayNamedAnimation("REST_LEFT", false);
+                break;
+
+            case (WalkingState.RestRight):
+                ragePixel.PlayNamedAnimation("REST_RIGHT", false);
+                break;
+
+            case(WalkingState.WalkDown):
+                ragePixel.PlayNamedAnimation("WALK_DOWN", false);
+                break;
+
+            case (WalkingState.WalkUp):
+                ragePixel.PlayNamedAnimation("WALK_UP", false);
+                break;
+
+            case (WalkingState.WalkLeft):
+                ragePixel.PlayNamedAnimation("WALK_LEFT", false);
+                break;
+
+            case (WalkingState.WalkRight):
+                ragePixel.PlayNamedAnimation("WALK_RIGHT", false);
+                break;
+        }
 
         // transform.Translate(moveDirection * Time.deltaTime * walkingSpeed);
 
@@ -79,9 +107,6 @@ public class Walker : MonoBehaviour {
         //     Debug.Log("JUMP!!!");
         // }
 
-        var x = Input.GetAxis("Horizontal") * 100;
-        var y = Input.GetAxis("Vertical") * 100;
-        // // transform.Translate(x, y, 0);
-        this.rigidbody.AddForce(x, y, 0);
+        this.rigidbody.AddForce(horizontal * 8, vertical * 8, 0);
 	}
 }
