@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameSceneCreator : MonoBehaviour {
 
-	public int startEnemiesCount = 4;
+	public int startEnemiesCount = 0;
 
 	public float levelWidth = 300;
 	public float levelHeight = 300;

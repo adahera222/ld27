@@ -28,6 +28,7 @@ public class AIEnemy : MonoBehaviour {
 	}
 	
 	void Update() {
+
 		if (x > 0) {
 			walkingState = WalkingState.WalkRight;
 		} else if (x < 0) {
@@ -42,23 +43,38 @@ public class AIEnemy : MonoBehaviour {
 			time = 0;
 		}
 
-		this.rigidbody.velocity = new Vector3(x, y, 0);
+		// this.rigidbody.velocity = new Vector3(x, y, 0);
 
-		switch (walkingState) {
-			case WalkingState.Rest:
-                ragePixel.PlayNamedAnimation("REST", false);
-				break;
+		// switch (walkingState) {
+		// 	case WalkingState.Rest:
+  //               ragePixel.PlayNamedAnimation("REST", false);
+		// 		break;
 
-			case WalkingState.WalkRight:
-				ragePixel.SetHorizontalFlip(true);
-                ragePixel.PlayNamedAnimation("WALK", false);
-				break;
+		// 	case WalkingState.WalkRight:
+		// 		ragePixel.SetHorizontalFlip(true);
+  //               ragePixel.PlayNamedAnimation("WALK", false);
+		// 		break;
 
-			case WalkingState.WalkLeft:
-				ragePixel.SetHorizontalFlip(false);
-                ragePixel.PlayNamedAnimation("WALK", false);
-				break;				
-		}
+		// 	case WalkingState.WalkLeft:
+		// 		ragePixel.SetHorizontalFlip(false);
+  //               ragePixel.PlayNamedAnimation("WALK", false);
+		// 		break;				
+		// }
+
+
+
+		GameObject Hero = GameObject.FindWithTag("Hero");
+		float d = Vector3.Distance(Hero.transform.position, this.gameObject.transform.position);
+
+		Vector3 enemyPosition = this.gameObject.transform.position;
+		Vector3 heroPosition = Hero.transform.position;
+
+		Vector3 diff = heroPosition - enemyPosition;
+
+		// this.rigidbody.velocity = diff;
+
+		
+
 
 		// if (calculateVector3ToHero != new Vector3(0f, 0f, 0f)) {
 		// 	//
