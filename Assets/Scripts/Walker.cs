@@ -31,7 +31,7 @@ public class Walker : MonoBehaviour {
 	void Update () {
 		if (!isAlive) {
 			timeToRestart -= Time.deltaTime;
-			Debug.Log("" + timeToRestart);
+			// Debug.Log("" + timeToRestart);
 			if (timeToRestart <= 0) {
 				Application.LoadLevel(Application.loadedLevel);
 			}
@@ -134,7 +134,7 @@ public class Walker : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.name == "Enemy(Clone)") {
-			if (other.gameObject.GetComponent<AIEnemy>().isAlive) {
+			if (!other.gameObject.GetComponent<AIEnemy>().isAlive) {
 				return;
 			}
 			ragePixel.PlayNamedAnimation("DEATH", false);

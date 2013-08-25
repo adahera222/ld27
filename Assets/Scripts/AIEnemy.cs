@@ -3,7 +3,7 @@ using System.Collections;
 
 public class AIEnemy : MonoBehaviour {
 
-	private IRagePixel ragePixel;
+	public IRagePixel ragePixel;
 
 	public enum WalkingState {
 		Rest = 0, 
@@ -12,6 +12,8 @@ public class AIEnemy : MonoBehaviour {
 	};
 
 	public bool isAlive = true;
+
+	public int direction = 0;
 
 	public WalkingState walkingState = WalkingState.Rest;
 
@@ -31,7 +33,7 @@ public class AIEnemy : MonoBehaviour {
 	}
 	
 	void Update() {
-		ragePixel.SetHorizontalFlip(true);
+		// ragePixel.SetHorizontalFlip(true);
 		if (!isAlive) {
 			this.rigidbody.velocity = new Vector3(0, 0, 0);
 			timeAfterDeath += Time.deltaTime;
@@ -57,11 +59,22 @@ public class AIEnemy : MonoBehaviour {
 			Vector3 diff = heroPosition - enemyPosition;
 
 			this.rigidbody.velocity = diff / 5;
+
+			int dir = (int) this.rigidbody.velocity.x;
+			switch (dir) {
+				case 0:
+					ragePixel.SetHorizontalFlip(false);
+					break;
+
+				case 1:
+					ragePixel.SetHorizontalFlip(true);
+					break;
+			}
 		}
 	}
 
 	void ChangeDirection() {
-		int direction = Random.Range(0, 3);
+		direction = Random.Range(0, 3);
 		switch (direction) {
 			case 0:
 				// ragePixel.SetHorizontalFlip(false);
