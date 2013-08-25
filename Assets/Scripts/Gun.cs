@@ -41,18 +41,3 @@ public class Gun : MonoBehaviour {
 	}
 }
 
-		// if (Input.GetButton("Fire1")) {
-		//     // Debug.Log("FIRE 1!!!");
-        //     this.audio.clip = [];
-        //     this.audio.Play(0);
-        // }
-        // if (Input.GetButton("Fire2")) {
-        //     // Debug.Log("FIRE 2!!!");
-        //     //change 
-        // }
-        // if (Input.GetButton("Fire3")) {
-        //     Debug.Log("FIRE 3!!!");
-        // }
-        // if (Input.GetButton("Jump")) {
-        //     Debug.Log("JUMP!!!");
-        // }

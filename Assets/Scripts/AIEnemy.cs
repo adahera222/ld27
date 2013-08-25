@@ -129,6 +129,8 @@ public class AIEnemy : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.name == "Bullet(Clone)") {
 			Destroy(other.gameObject);
+
+			ragePixel.PlayNamedAnimation("DEATH", false);
 		}
     }
 

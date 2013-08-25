@@ -8,7 +8,7 @@ public class BulletFly : MonoBehaviour {
 	float bulletSpeed = 60;
 	
 	void Update () {
-		
+
 		switch (state) {
 			case 4:
 				//down
@@ -18,7 +18,6 @@ public class BulletFly : MonoBehaviour {
 
 			case 5:
 				//up
-				// this.transform.Rotate(0f, 0f, 90f);
 				this.rigidbody.velocity = new Vector3(0, bulletSpeed, 0);
 				break;
 
