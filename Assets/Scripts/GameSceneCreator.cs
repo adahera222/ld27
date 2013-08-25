@@ -19,11 +19,35 @@ public class GameSceneCreator : MonoBehaviour {
 		}
 	}
 
-	public void CreateEnemy() {
-		float x = BothBoundsRandoms(60, 200);
-		float y = BothBoundsRandoms(600, 800);
+	void CreateEnemy() {
+		float x = BothBoundsRandoms(60, 100);
+		float y = BothBoundsRandoms(700, 1000);
 
 		Vector3 position = new Vector3(x, y, 0);
+		Instantiate(Resources.Load("Prefabs/Enemy"), position, Quaternion.identity);
+	}
+
+	public void CreateEnemyNearBy(Vector3 position) {
+		int f = (int) BothBoundsRandoms(0, 4);
+
+		switch (f) {
+			case 0:
+				position.x = position.x + 100;
+				break;
+
+			case 1:
+				position.x = position.x - 100;
+				break;
+
+			case 2:
+				position.y = position.y + 100;
+				break;
+
+			case 3:
+				position.y = position.y - 100;
+				break;
+		}
+
 		Instantiate(Resources.Load("Prefabs/Enemy"), position, Quaternion.identity);
 	}
 

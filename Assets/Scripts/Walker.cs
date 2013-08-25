@@ -5,6 +5,8 @@ public class Walker : MonoBehaviour {
 
 	private IRagePixel ragePixel;
 
+	public AudioClip arr;
+
 	public enum WalkingState {
 		RestDown = 0,
 		RestUp,
@@ -22,21 +24,30 @@ public class Walker : MonoBehaviour {
 	private bool isAlive = true;
 	private float timeToRestart = 2f;
 
-	private float walkingSpeed = 18.0f;
+	private float walkingSpeed = 15.0f;
+
+	float timeFromArr = 15;
 
 	void Start () {
 		ragePixel = GetComponent<RagePixelSprite>();
+		audio.PlayOneShot(arr);
 	}
 	
 	void Update () {
 		if (!isAlive) {
 			timeToRestart -= Time.deltaTime;
-			// Debug.Log("" + timeToRestart);
 			if (timeToRestart <= 0) {
 				Application.LoadLevel(Application.loadedLevel);
 			}
 
 			return;
+		}
+
+		if (timeFromArr > 0) {
+			timeFromArr -= Time.deltaTime;
+		} else {
+			timeFromArr = BothBoundsRandoms(10, 20);
+			audio.PlayOneShot(arr);
 		}
 
         int vertical = (int) Input.GetAxis("Vertical");
@@ -140,6 +151,11 @@ public class Walker : MonoBehaviour {
 			ragePixel.PlayNamedAnimation("DEATH", false);
 			isAlive = false;
 		}
+    }
+
+    static float BothBoundsRandoms(float lower, float upper) {
+        float number = Random.Range(lower, upper);
+        return number;
     }
 
 }

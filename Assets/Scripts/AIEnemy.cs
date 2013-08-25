@@ -105,8 +105,9 @@ public class AIEnemy : MonoBehaviour {
 			isAlive = false;
 			audio.PlayOneShot(death);
 
-			Debug.Log("sdfasd2222");
-			Camera.mainCamera.GetComponent<GameSceneCreator>().CreateEnemy();
+			GameObject Hero = GameObject.FindWithTag("Hero");
+			Vector3 position = Hero.transform.position;
+			Camera.mainCamera.GetComponent<GameSceneCreator>().CreateEnemyNearBy(position);
 		} else {
 			ChangeDirection();
 		}
