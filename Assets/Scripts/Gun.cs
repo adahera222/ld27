@@ -25,6 +25,7 @@ public class Gun : MonoBehaviour {
 				timeToNextShoot = kReloadTime;
 
 				Vector3 position = this.gameObject.transform.position;
+				position.y = position.y + 50;
 				GameObject bullet = (GameObject) Instantiate(Resources.Load("Prefabs/Bullet"), position, Quaternion.identity);
 
 				int state = (int) this.gameObject.GetComponent<Walker>().lastState;
@@ -44,8 +45,8 @@ public class Gun : MonoBehaviour {
 				} else {
 					//
 				}
-				
 			}
+
 			timeToNextShoot -= Time.deltaTime;
 			TimeToReload.text = "" + timeToNextShoot;
 		}
