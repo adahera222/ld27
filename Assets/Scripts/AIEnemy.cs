@@ -11,7 +11,7 @@ public class AIEnemy : MonoBehaviour {
 		WalkLeft
 	};
 
-	private bool isAlive = true;
+	public bool isAlive = true;
 
 	public WalkingState walkingState = WalkingState.Rest;
 
@@ -20,6 +20,10 @@ public class AIEnemy : MonoBehaviour {
 	private float oneDirectionTime = 0;
 
 	private float movementSpeed = 25f;
+
+	private float timeAfterDeath = 0;
+
+	public AudioClip death;
 
 	void Start() {
 		ragePixel = GetComponent<RagePixelSprite>();
@@ -30,6 +34,10 @@ public class AIEnemy : MonoBehaviour {
 		ragePixel.SetHorizontalFlip(true);
 		if (!isAlive) {
 			this.rigidbody.velocity = new Vector3(0, 0, 0);
+			timeAfterDeath += Time.deltaTime;
+			if (timeAfterDeath > 5) {
+				Destroy(this.gameObject);
+			}
 			return;
 		}
 
@@ -82,6 +90,7 @@ public class AIEnemy : MonoBehaviour {
 
 			ragePixel.PlayNamedAnimation("DEATH", false);
 			isAlive = false;
+			audio.PlayOneShot(death);
 		} else {
 			ChangeDirection();
 		}

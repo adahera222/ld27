@@ -13,6 +13,9 @@ public class Gun : MonoBehaviour {
 
 	public AudioClip audioShoot;
 	public AudioClip audioFail;
+
+	// private bool isFailPlay = false;
+	private float failInterval = 0f;
 	
 	void Update () {
 
@@ -27,17 +30,27 @@ public class Gun : MonoBehaviour {
 				int state = (int) this.gameObject.GetComponent<Walker>().lastState;
 
 				bullet.GetComponent<BulletFly>().state = state;
+
+				audio.PlayOneShot(audioShoot);
 			}
-			// audio.PlayOneShot(audioShoot);
+			
 			TimeToReload.text = "You can shoot!";
 
 		} else {
-			// if (Input.GetButton("Fire1")) {
-			// 	audio.PlayOneShot(audioFail);
-			// }
+			if (Input.GetButton("Fire1")) {
+				if (failInterval<= 0) {
+					audio.PlayOneShot(audioFail);
+					failInterval = 0.5f;
+				} else {
+					//
+				}
+				
+			}
 			timeToNextShoot -= Time.deltaTime;
 			TimeToReload.text = "" + timeToNextShoot;
 		}
+		failInterval -= Time.deltaTime;
+
 	}
 }
 
