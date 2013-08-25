@@ -19,13 +19,12 @@ public class GameSceneCreator : MonoBehaviour {
 		}
 	}
 
-	void CreateEnemy() {
+	public void CreateEnemy() {
 		float x = BothBoundsRandoms(60, 200);
 		float y = BothBoundsRandoms(600, 800);
 
 		Vector3 position = new Vector3(x, y, 0);
 		Instantiate(Resources.Load("Prefabs/Enemy"), position, Quaternion.identity);
-
 	}
 
 	static float BothBoundsRandoms(float lower, float upper) {

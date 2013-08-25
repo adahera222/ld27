@@ -104,6 +104,9 @@ public class AIEnemy : MonoBehaviour {
 			ragePixel.PlayNamedAnimation("DEATH", false);
 			isAlive = false;
 			audio.PlayOneShot(death);
+
+			Debug.Log("sdfasd2222");
+			Camera.mainCamera.GetComponent<GameSceneCreator>().CreateEnemy();
 		} else {
 			ChangeDirection();
 		}
