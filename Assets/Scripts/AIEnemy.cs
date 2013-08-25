@@ -13,6 +13,8 @@ public class AIEnemy : MonoBehaviour {
 		WalkLeft
 	};
 
+	private bool isAlive = true;
+
 	public WalkingState walkingState = WalkingState.Rest;
 
 	private float walkingSpeed = 22.0f;
@@ -20,110 +22,64 @@ public class AIEnemy : MonoBehaviour {
 	private float x = -15f;
 	private float y = 0f;
 
-	float time = 0;
-	float maxTime = 6f;
+	static private float kOneDirectionTime = 5;
+
+	private float oneDirectionTime = 0;
+
+	private float movementSpeed = 25f;
 
 	void Start() {
 		ragePixel = GetComponent<RagePixelSprite>();
+		ragePixel.PlayNamedAnimation("WALK", false);
 	}
 	
 	void Update() {
+		if (!isAlive) {
+			this.rigidbody.velocity = new Vector3(0, 0, 0);
+			return;
+		}
 
-		if (x > 0) {
-			walkingState = WalkingState.WalkRight;
-		} else if (x < 0) {
-			walkingState = WalkingState.WalkLeft;
+		if (oneDirectionTime <= 0) {
+			ChangeDirection();
 		} else {
-			walkingState = WalkingState.Rest;
-		}
-		time += Time.deltaTime;
-		if (time >= maxTime) {
-			x = -x;
-			// y = y * (-1);
-			time = 0;
+			oneDirectionTime -= Time.deltaTime;
 		}
 
-		// this.rigidbody.velocity = new Vector3(x, y, 0);
+		GameObject Hero = GameObject.FindWithTag("Hero");
+		float d = Vector3.Distance(Hero.transform.position, this.gameObject.transform.position);
 
-		// switch (walkingState) {
-		// 	case WalkingState.Rest:
-  //               ragePixel.PlayNamedAnimation("REST", false);
-		// 		break;
+		if (d < 1) {
+			Vector3 enemyPosition = this.gameObject.transform.position;
+			Vector3 heroPosition = Hero.transform.position;
 
-		// 	case WalkingState.WalkRight:
-		// 		ragePixel.SetHorizontalFlip(true);
-  //               ragePixel.PlayNamedAnimation("WALK", false);
-		// 		break;
+			Vector3 diff = heroPosition - enemyPosition;
 
-		// 	case WalkingState.WalkLeft:
-		// 		ragePixel.SetHorizontalFlip(false);
-  //               ragePixel.PlayNamedAnimation("WALK", false);
-		// 		break;				
-		// }
-
-
-
-		// GameObject Hero = GameObject.FindWithTag("Hero");
-		// float d = Vector3.Distance(Hero.transform.position, this.gameObject.transform.position);
-
-		// Vector3 enemyPosition = this.gameObject.transform.position;
-		// Vector3 heroPosition = Hero.transform.position;
-
-		// Vector3 diff = heroPosition - enemyPosition;
-
-		// this.rigidbody.velocity = diff;
-
-
-
-
-		// if (calculateVector3ToHero != new Vector3(0f, 0f, 0f)) {
-		// 	//
-		// }
-
-		// if (Input.GetKey(KeyCode.LeftArrow))
-  //       {
-  //           state = WalkingState.WalkLeft;
-  //       }
-  //       else if (Input.GetKey(KeyCode.RightArrow))
-  //       {
-  //           state = WalkingState.WalkRight;
-  //       }
-  //       else
-  //       {
-  //           state = WalkingState.Standing;
-  //       }
-
-  //       Vector3 moveDirection = new Vector3();
-        
-  //       switch (state)
-  //       {
-  //           case(WalkingState.Standing):
-  //               ragePixel.SetHorizontalFlip(false);
-                // ragePixel.PlayNamedAnimation("WALK", false);
-  //               break;
-
-  //           case (WalkingState.WalkLeft):
-  //               ragePixel.SetHorizontalFlip(true);
-  //               ragePixel.PlayNamedAnimation("WALK", false);
-  //               moveDirection = new Vector3(-1f, 0f, 0f);
-  //               break;
-
-  //           case (WalkingState.WalkRight):
-  //               ragePixel.SetHorizontalFlip(false);
-  //               ragePixel.PlayNamedAnimation("WALK", false);
-  //               moveDirection = new Vector3(1f, 0f, 0f);
-  //               break;
-  //       }
-
-  //       transform.Translate(moveDirection * Time.deltaTime * walkingSpeed);
+			this.rigidbody.velocity = diff;
+		}
 	}
 
-	float CalculateVector3ToHero() {
-		return 0f;
-	}
+	void ChangeDirection() {
+		int direction = Random.Range(0, 3);
+		switch (direction) {
+			case 0:
+				ragePixel.SetHorizontalFlip(false);
+				this.rigidbody.velocity = new Vector3(-movementSpeed, 0, 0);
+				break;
 
-	float CalculateVector3ToFood() {
-		return 0f;
+			case 1:
+				ragePixel.SetHorizontalFlip(true);
+				this.rigidbody.velocity = new Vector3(movementSpeed, 0, 0);
+				break;
+
+			case 2:
+				this.rigidbody.velocity = new Vector3(0, movementSpeed, 0);
+				break;
+
+			case 3:
+				this.rigidbody.velocity = new Vector3(0, -movementSpeed, 0);
+				break;
+		}
+		oneDirectionTime = kOneDirectionTime;
 	}
 
 	void OnTriggerEnter(Collider other) {
@@ -131,6 +87,7 @@ public class AIEnemy : MonoBehaviour {
 			Destroy(other.gameObject);
 
 			ragePixel.PlayNamedAnimation("DEATH", false);
+			isAlive = false;
 		}
     }
 

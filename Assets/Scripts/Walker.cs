@@ -19,6 +19,9 @@ public class Walker : MonoBehaviour {
 	public WalkingState state = WalkingState.RestDown;
 	public WalkingState lastState = 0;
 
+	private bool isAlive = true;
+	private float timeToRestart = 2f;
+
 	private float walkingSpeed = 18.0f;
 
 	void Start () {
@@ -26,6 +29,15 @@ public class Walker : MonoBehaviour {
 	}
 	
 	void Update () {
+		if (!isAlive) {
+			timeToRestart -= Time.deltaTime;
+			Debug.Log("" + timeToRestart);
+			if (timeToRestart <= 0) {
+				Application.LoadLevel(Application.loadedLevel);
+			}
+
+			return;
+		}
 
         int vertical = (int) Input.GetAxis("Vertical");
         int horizontal = (int) Input.GetAxis("Horizontal");
@@ -119,5 +131,13 @@ public class Walker : MonoBehaviour {
         }
 
 	}
+
+	void OnTriggerEnter(Collider other) {
+		if (other.gameObject.name == "Enemy(Clone)") {
+			// Destroy(other.gameObject);
+			ragePixel.PlayNamedAnimation("DEATH", false);
+			isAlive = false;
+		}
+    }
 
 }
