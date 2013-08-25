@@ -134,7 +134,9 @@ public class Walker : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.name == "Enemy(Clone)") {
-			// Destroy(other.gameObject);
+			if (other.gameObject.GetComponent<AIEnemy>().isAlive) {
+				return;
+			}
 			ragePixel.PlayNamedAnimation("DEATH", false);
 			isAlive = false;
 		}

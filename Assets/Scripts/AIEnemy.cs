@@ -5,8 +5,6 @@ public class AIEnemy : MonoBehaviour {
 
 	private IRagePixel ragePixel;
 
-	private float distanseToHero = 0;
-
 	public enum WalkingState {
 		Rest = 0, 
 		WalkRight, 
@@ -16,11 +14,6 @@ public class AIEnemy : MonoBehaviour {
 	private bool isAlive = true;
 
 	public WalkingState walkingState = WalkingState.Rest;
-
-	private float walkingSpeed = 22.0f;
-
-	private float x = -15f;
-	private float y = 0f;
 
 	static private float kOneDirectionTime = 5;
 
@@ -34,6 +27,7 @@ public class AIEnemy : MonoBehaviour {
 	}
 	
 	void Update() {
+		ragePixel.SetHorizontalFlip(true);
 		if (!isAlive) {
 			this.rigidbody.velocity = new Vector3(0, 0, 0);
 			return;
@@ -48,13 +42,13 @@ public class AIEnemy : MonoBehaviour {
 		GameObject Hero = GameObject.FindWithTag("Hero");
 		float d = Vector3.Distance(Hero.transform.position, this.gameObject.transform.position);
 
-		if (d < 1) {	//150
+		if (d < 150) {
 			Vector3 enemyPosition = this.gameObject.transform.position;
 			Vector3 heroPosition = Hero.transform.position;
 
 			Vector3 diff = heroPosition - enemyPosition;
 
-			this.rigidbody.velocity = diff;
+			this.rigidbody.velocity = diff / 5;
 		}
 	}
 
@@ -62,12 +56,12 @@ public class AIEnemy : MonoBehaviour {
 		int direction = Random.Range(0, 3);
 		switch (direction) {
 			case 0:
-				ragePixel.SetHorizontalFlip(false);
+				// ragePixel.SetHorizontalFlip(false);
 				this.rigidbody.velocity = new Vector3(-movementSpeed, 0, 0);
 				break;
 
 			case 1:
-				ragePixel.SetHorizontalFlip(true);
+				// ragePixel.SetHorizontalFlip(true);
 				this.rigidbody.velocity = new Vector3(movementSpeed, 0, 0);
 				break;
 

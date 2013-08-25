@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameSceneCreator : MonoBehaviour {
 
-	public int startEnemiesCount = 18;
+	static public int startEnemiesCount = 18;
 
 	public float levelWidth = 800;
 	public float levelHeight = 500;
@@ -15,8 +15,10 @@ public class GameSceneCreator : MonoBehaviour {
 	}
 
 	void CreateEnemy() {
-		float x = BothBoundsRandoms(0, levelWidth);
-		float y = BothBoundsRandoms(0, levelHeight);
+		float x = BothBoundsRandoms(60, 200);
+		float y = BothBoundsRandoms(600, 800);
+
+		Debug.Log("x = " + x + ", y = " + y);
 
 		Vector3 position = new Vector3(x, y, 0);
 		Instantiate(Resources.Load("Prefabs/Enemy"), position, Quaternion.identity);
