@@ -48,7 +48,7 @@ public class AIEnemy : MonoBehaviour {
 		GameObject Hero = GameObject.FindWithTag("Hero");
 		float d = Vector3.Distance(Hero.transform.position, this.gameObject.transform.position);
 
-		if (d < 1) {
+		if (d < 1) {	//150
 			Vector3 enemyPosition = this.gameObject.transform.position;
 			Vector3 heroPosition = Hero.transform.position;
 
@@ -88,6 +88,8 @@ public class AIEnemy : MonoBehaviour {
 
 			ragePixel.PlayNamedAnimation("DEATH", false);
 			isAlive = false;
+		} else {
+			ChangeDirection();
 		}
     }
 

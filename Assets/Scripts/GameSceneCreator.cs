@@ -3,10 +3,10 @@ using System.Collections;
 
 public class GameSceneCreator : MonoBehaviour {
 
-	public int startEnemiesCount = 0;
+	public int startEnemiesCount = 18;
 
-	public float levelWidth = 300;
-	public float levelHeight = 300;
+	public float levelWidth = 800;
+	public float levelHeight = 500;
 
 	void Start () {
 		for (int i = 0; i < startEnemiesCount; ++i) {

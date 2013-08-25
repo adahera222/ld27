@@ -6,6 +6,7 @@ public class BulletFly : MonoBehaviour {
 	public int state = 0;
 
 	float bulletSpeed = 60;
+	float flyTime = 30f;
 	
 	void Update () {
 
@@ -31,6 +32,12 @@ public class BulletFly : MonoBehaviour {
 				this.rigidbody.velocity = new Vector3(bulletSpeed, 0, 0);
 				break;
 		}	
+
+		if (flyTime > 0) {
+			flyTime -= Time.deltaTime;
+		} else {
+			Destroy(this.gameObject);
+		}
 	}
 
 }
